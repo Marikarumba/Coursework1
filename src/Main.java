@@ -4,7 +4,9 @@ public class Main {
     public static void printEmployerList (Employee [] eList) {
 
         for (int i = 0; i < eList.length; i++) {
-            out.println(eList[i].toString());
+            if (eList[i] != null) {
+                out.println(eList[i].toString());
+            }
         }
     }
 
@@ -13,7 +15,9 @@ public class Main {
         int salarySum = 0;
 
         for (int i = 0; i < eList.length; i++) {
-            salarySum = salarySum + eList[i].getSalary();
+            if (eList[i] != null) {
+                salarySum += eList[i].getSalary();
+            }
         }
         return salarySum;
 
@@ -25,9 +29,11 @@ public class Main {
         Employee minPerson=eList[0];
 
         for (int i = 0; i < eList.length; i++) {
-            if (eList[i].getSalary() < min) {
-                min = eList[i].getSalary();
-                minPerson=eList[i];
+            if (eList[i] != null) {
+                if (eList[i].getSalary() < min) {
+                    min = eList[i].getSalary();
+                    minPerson = eList[i];
+                }
             }
         }
         return minPerson;
@@ -38,22 +44,34 @@ public class Main {
         int max = 0;
         Employee maxPerson=eList[0];
         for (int i = 0; i < eList.length; i++) {
-            if (eList[i].getSalary() > max) {
-                max = eList[i].getSalary();
-                maxPerson=eList[i];
+            if (eList[i] != null) {
+                if (eList[i].getSalary() > max) {
+                    max = eList[i].getSalary();
+                    maxPerson = eList[i];
+                }
             }
         }
         return maxPerson;
     }
 
     public static int middleSalary (Employee [] eList) {
-        return getSumSalary(eList)/eList.length;
+        int numberOfEmployers = 0;
+        for (int i = 0; i < eList.length; i++) {
+            if (eList[i] != null) {
+                numberOfEmployers++;
+            }
+        }
+        if (numberOfEmployers == 0)
+            return 0;
+        return getSumSalary(eList)/numberOfEmployers;
     }
 
     public static void printFullName (Employee [] eList) {
 
         for (int i = 0; i < eList.length; i++) {
-            out.println(eList[i].getFullName());
+            if (eList[i] != null) {
+                out.println(eList[i].getFullName());
+            }
         }
     }
 
@@ -63,7 +81,7 @@ public class Main {
         employerList [0] = new Employee( "Иванов0 И.И.", 1, 10_000);
         employerList [1] = new Employee( "Иванов1 И.И.", 1, 20_000);
         employerList [2] = new Employee( "Иванов2 И.И.", 2, 30_000);
-        employerList [3] = new Employee( "Иванов3 И.И.", 2, 40_000);
+        employerList [3] = null;
         employerList [4] = new Employee( "Иванов4 И.И.", 3, 50_000);
         employerList [5] = new Employee( "Иванов5 И.И.", 3, 60_000);
         employerList [6] = new Employee( "Иванов6 И.И.", 4, 70_000);

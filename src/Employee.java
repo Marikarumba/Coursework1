@@ -1,6 +1,4 @@
-import java.security.PublicKey;
-
-import static java.lang.System.out;
+import java.util.Objects;
 
 public class Employee {
 
@@ -34,7 +32,7 @@ public class Employee {
       return id;
    }
 
-   public static int getEmployeeCounter() {
+   public int getEmployeeCounter() {
       return employeeCounter;
    }
 
@@ -48,5 +46,18 @@ public class Employee {
 
    public String toString() {
       return "# " + id +" "+ fullName + " Отдел #" + department + " Оклад: " + salary;
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      Employee employee = (Employee) o;
+      return department == employee.department && salary == employee.salary && id == employee.id && Objects.equals(fullName, employee.fullName);
+   }
+
+   @Override
+   public int hashCode() {
+      return Objects.hash(fullName, department, salary, id);
    }
 }
