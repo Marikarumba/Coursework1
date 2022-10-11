@@ -10,6 +10,16 @@ public class Main {
         }
     }
 
+    public static void printEmployerList (Employee [] eList, int dep) {
+
+        for (int i = 0; i < eList.length; i++) {
+            if (eList[i] != null) {
+                if ( eList[i].getDepartment() == dep)
+                out.println(eList[i].toStringDep());
+            }
+        }
+    }
+
     public static int getSumSalary (Employee [] eList) {
 
         int salarySum = 0;
@@ -17,6 +27,20 @@ public class Main {
         for (int i = 0; i < eList.length; i++) {
             if (eList[i] != null) {
                 salarySum += eList[i].getSalary();
+            }
+        }
+        return salarySum;
+
+    }
+    public static int getSumSalary (Employee [] eList, int dep) {
+
+        int salarySum = 0;
+
+        for (int i = 0; i < eList.length; i++) {
+            if (eList[i] != null) {
+                if (eList[i].getDepartment() == dep) {
+                    salarySum += eList[i].getSalary();
+                }
             }
         }
         return salarySum;
@@ -39,6 +63,24 @@ public class Main {
         return minPerson;
     }
 
+    public static Employee getMinSalary (Employee [] eList, int dep) {
+
+        int min = Integer.MAX_VALUE;
+        Employee minPerson=eList[0];
+
+        for (int i = 0; i < eList.length; i++) {
+            if (eList[i] != null) {
+                if (eList[i].getDepartment() == dep) {
+                    if (eList[i].getSalary() < min) {
+                        min = eList[i].getSalary();
+                        minPerson = eList[i];
+                    }
+                }
+            }
+        }
+        return minPerson;
+    }
+
     public static Employee getMaxSalary (Employee [] eList) {
 
         int max = 0;
@@ -48,6 +90,23 @@ public class Main {
                 if (eList[i].getSalary() > max) {
                     max = eList[i].getSalary();
                     maxPerson = eList[i];
+                }
+            }
+        }
+        return maxPerson;
+    }
+
+    public static Employee getMaxSalary (Employee [] eList, int dep) {
+
+        int max = 0;
+        Employee maxPerson=eList[0];
+        for (int i = 0; i < eList.length; i++) {
+            if (eList[i] != null) {
+                if (eList[i].getDepartment() == dep) {
+                    if (eList[i].getSalary() > max) {
+                        max = eList[i].getSalary();
+                        maxPerson = eList[i];
+                    }
                 }
             }
         }
@@ -66,6 +125,20 @@ public class Main {
         return getSumSalary(eList)/numberOfEmployers;
     }
 
+    public static int middleSalary (Employee [] eList, int dep) {
+        int numberOfEmployers = 0;
+        for (int i = 0; i < eList.length; i++) {
+            if (eList[i] != null) {
+                if (eList[i].getDepartment() == dep) {
+                    numberOfEmployers++;
+                }
+            }
+        }
+        if (numberOfEmployers == 0)
+            return 0;
+        return getSumSalary(eList, dep)/numberOfEmployers;
+    }
+
     public static void printFullName (Employee [] eList) {
 
         for (int i = 0; i < eList.length; i++) {
@@ -74,6 +147,42 @@ public class Main {
             }
         }
     }
+
+    public static void indexSalaryList (Employee [] eList, int percent) {
+        for (int i = 0; i < eList.length; i++) {
+            if (eList[i] != null) {
+                eList[i].indexSalary(percent);
+            }
+        }
+    }
+
+    public static void indexSalaryList (Employee [] eList, int percent, int dep) {
+        for (int i = 0; i < eList.length; i++) {
+            if (eList[i] != null) {
+                if (eList[i].getDepartment() == dep) {
+                    eList[i].indexSalary(percent);
+                }
+            }
+        }
+    }
+
+    public static void findLessSalary (Employee [] eList, int salaryRate) {
+        for (int i = 0; i < eList.length; i++) {
+            if (eList[i] != null) {
+                if ( eList[i].getSalary() < salaryRate)
+                    out.println(eList[i].toStringDep());
+            }
+        }
+    }
+    public static void findMoreSalary (Employee [] eList, int salaryRate) {
+        for (int i = 0; i < eList.length; i++) {
+            if (eList[i] != null) {
+                if ( eList[i].getSalary() >= salaryRate)
+                    out.println(eList[i].toStringDep());
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
 
@@ -95,7 +204,19 @@ public class Main {
         out.println("Максимальный оклад у сотрудника: " + getMaxSalary(employerList).toString());
         out.println("Средний оклад: "+middleSalary(employerList));
         printFullName(employerList);
-
+        out.println("Средняя сложность");
+        indexSalaryList(employerList, 50);
+        printEmployerList(employerList);
+        printEmployerList(employerList, 4);
+        out.println("Минимальный оклад у сотрудника отдела № 4: " + getMinSalary(employerList, 4).toString());
+        out.println("Максимальный оклад у сотрудника отдела № 4: " + getMaxSalary(employerList, 4).toString());
+        out.println("Сумма зарплат отдела 3: " + getSumSalary(employerList, 3));
+        out.println("Средний оклад по отделу 4: "+middleSalary(employerList,4));
+        indexSalaryList(employerList,100, 1);
+        printEmployerList(employerList, 1);
+        findLessSalary(employerList,100_000);
+        out.println( );
+        findMoreSalary(employerList, 100_000);
     }
 
 }

@@ -45,7 +45,11 @@ public class Employee {
    }
 
    public String toString() {
-      return "# " + id +" "+ fullName + " Отдел #" + department + " Оклад: " + salary;
+      return "# " + id + " " + fullName + " Отдел #" + department + " Оклад: " + salary;
+   }
+
+   public String toStringDep() {
+      return "# " + id + " " + fullName + " Оклад: " + salary;
    }
 
    @Override
@@ -59,5 +63,9 @@ public class Employee {
    @Override
    public int hashCode() {
       return Objects.hash(fullName, department, salary, id);
+   }
+
+   public void indexSalary(int percent) {
+      salary+=salary *  percent / 100;
    }
 }
